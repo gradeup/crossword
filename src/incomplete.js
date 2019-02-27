@@ -16,7 +16,7 @@ class Square extends React.Component {
   }
 }
 
-var nickNamesArray = [
+const nickNamesArray = [
 'munni',
 'budhiya',
 'chuhiya',
@@ -53,7 +53,7 @@ function generate_random_string(){
     let ascii_high = 90
     for(let i = 0; i < 1; i++) {
         random_ascii = Math.floor((Math.random() * (ascii_high - ascii_low)) + ascii_low);
-        random_string += String.fromCharCode(random_ascii)
+        random_string += String.fromCharCode(random_ascii).toLowerCase();
     }
     return random_string
 }
@@ -64,6 +64,7 @@ class Board extends React.Component {
 	{
 		super(props);
 	}
+
   renderSquare(i) {
     return <Square value={i} />;
   }
@@ -82,7 +83,8 @@ class Board extends React.Component {
 
   render() {
 
-    const boards = this.loop2();
+    let boards = this.loop2();
+    boards = this.alterboard(boards);
 
     return (
       <div>
@@ -102,13 +104,64 @@ class Board extends React.Component {
       </div>
     );
   }
+
+  getRandomInt = (num) => { 
+    let randNum = Math.floor((Math.random() * num) + 1);
+    return randNum;
+  }
+  verifyWord = (word,x,y,ind,boards) => {
+    for (let i = 0; i < word.length; i++) {
+      if(word[i] === boards[x][y]) {
+        if(ind==0) {
+          x=x+1;
+        }else {
+          y=y+1;
+        }
+        continue;
+      }
+      if(boards[x][y] === boards[x][y].toUpperCase()){
+        return false;
+      }
+      if(ind==0) {
+        x=x+1;
+      }else {
+        y=y+1;
+      }
+    }
+    return true;
+  }
+  alterboard = (boards) => {
+    const res =[];
+    for (let i = 0; i < 10; ++i) {
+      let presentWord = nickNamesArray[this.getRandomInt(22)];
+      let orientation = this.getRandomInt(10)%2;
+      let startidx = this.getRandomInt(20-presentWord.length);
+      let startidy = this.getRandomInt(20-presentWord.length);
+      while (res.includes(presentWord) || !this.verifyWord(presentWord,startidx,startidy,orientation,boards)) {
+        presentWord = nickNamesArray[this.getRandomInt(22)];
+        orientation = this.getRandomInt(10)%2;
+        startidx = this.getRandomInt(20-presentWord.length);
+        startidy = this.getRandomInt(20-presentWord.length);
+      }
+      console.log(presentWord,'presentWord');
+      res.push(presentWord);
+      for (let i = 0; i < presentWord.length; i++) {
+        boards[startidx][startidy] = presentWord[i].toUpperCase();
+        if (orientation===0) {
+          startidx=startidx+1;
+        }
+        else {
+          startidy=startidy+1;
+        }
+      }
+    }
+    return boards;
+  }
+
 }
 
 
 class Game extends React.Component {
-
-
-  
   render() {
     return (
       <div className="game">
@@ -120,6 +173,7 @@ class Game extends React.Component {
       </div>
     );
   }
+
 }
 
 

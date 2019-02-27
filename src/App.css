@@ -31,3 +31,10 @@
     transform: rotate(360deg);
   }
 }
+
+
+.giphyimage {
+  margin:auto;
+  width:300px;
+  height:300px;
+}

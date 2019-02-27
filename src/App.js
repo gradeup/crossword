@@ -8,7 +8,6 @@ import { getGiphy } from './giphy.js'
 class App extends Component {
   state = {
     data: "",
-    matrix: [],
   };
 
   componentDidMount() {
@@ -25,9 +24,6 @@ class App extends Component {
    
     <div>
      <Game/>
-      <div className="matrix">
-        {}
-      </div>
       <button onClick={()=>this.getnewgiphy('excellent')}>right</button>
       <button onClick={()=>this.getnewgiphy('wrong')}>wrong</button>
       <img  className="giphyimage" src={this.state.data} id="giphy"></img>
@@ -41,11 +37,7 @@ class App extends Component {
       this.setState({data: data.data[0].images.downsized_medium.url});
     });
   }
-  getRandomInt(num) { 
-    let randNum = Math.floor((Math.random() * num) + 1);
-    console.log(randNum);
-    return randNum;
-  }
+
 }
 
 export default App;

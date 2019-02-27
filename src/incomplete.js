@@ -32,7 +32,10 @@ class Square extends React.Component {
       }
       else
       {
-        this.props.callgetgiphy('correct');
+        console.log(typeof matchedString);
+        var stringForGiphy = giphyMapping[matchedString.toLowerCase()];
+        console.log("hahahahha"+stringForGiphy);
+        this.props.callgetgiphy(stringForGiphy);
         console.log(matchedString);
       }
 
@@ -59,6 +62,7 @@ class Square extends React.Component {
 function checkIfWordExists(x, y, boards)
 {
   var charString = '';
+
 
 console.log(firstSelectedIndex, lastselectedIndex);
 if(firstSelectedIndex[0]==lastselectedIndex[0])
@@ -90,9 +94,10 @@ console.log(charString, nickNamesArray);
 
 if(nickNamesArray.includes(charString.toLowerCase()))
 {
-  return charString.toLowerCase;
+
+  return charString.toLowerCase();
 }
-return "";
+return "jjL";
 
 
 }
@@ -123,7 +128,44 @@ const nickNamesArray = [
 'gareeb',
 'midget',
 'changu',
-'baap'];
+'baap',
+'buddies'];
+
+
+
+var giphyMapping = {
+"munni": "high",
+"budhiya": "old",
+"chuhiya": "mouse",
+"aalsi":  "lazy",
+"ninja": "coder",
+"motu": "fat",
+"saanp": "snake",
+"ashu": "snake",
+"gujjar": "shabby",
+"amu": "crazy",
+"takla": "bald",
+"god": "intelligent",
+"hardik": "high",
+"pagal": "mad",
+"nikki": "intelligent",
+"bipis": "royal enfield",
+"vroom": "panda",
+"lambu": "tall",
+"bughay": "excited",
+"chill": "cool",
+"genda": "fat",
+"ameer": "rich",
+"kids": "kids",
+"gareeb": "poor",
+"midget": "short",
+"changu": "stupid",
+"baap": "dad",
+"buddies": "friends"}; 
+ 
+
+
+
 
 
 function generate_random_string(){
@@ -151,9 +193,9 @@ class Board extends React.Component {
 
   loop2 = () => {
         let boards=[];
-        for (let i=0; i<20; i++) {
+        for (let i=0; i<12; i++) {
           boards[i] = [];
-  	    for (let k=0; k<20; k++) {
+  	    for (let k=0; k<12; k++) {
         	boards[i].push(generate_random_string()); 
         }
       }
@@ -215,13 +257,13 @@ class Board extends React.Component {
     for (let i = 0; i < 10; ++i) {
       let presentWord = nickNamesArray[this.getRandomInt(22)];
       let orientation = this.getRandomInt(10)%2;
-      let startidx = this.getRandomInt(20-presentWord.length);
-      let startidy = this.getRandomInt(20-presentWord.length);
+      let startidx = this.getRandomInt(12-presentWord.length);
+      let startidy = this.getRandomInt(12-presentWord.length);
       while (res.includes(presentWord) || !this.verifyWord(presentWord,startidx,startidy,orientation,boards)) {
         presentWord = nickNamesArray[this.getRandomInt(22)];
         orientation = this.getRandomInt(10)%2;
-        startidx = this.getRandomInt(20-presentWord.length);
-        startidy = this.getRandomInt(20-presentWord.length);
+        startidx = this.getRandomInt(12-presentWord.length);
+        startidy = this.getRandomInt(12-presentWord.length);
       }
       console.log(presentWord,'presentWord');
       res.push(presentWord);

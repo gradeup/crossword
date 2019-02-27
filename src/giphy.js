@@ -55,7 +55,9 @@ class Giphy extends React.Component {
 	
 	render(){
 		return (
+		<div className="giphyWrapper">
 			<img  className="giphyimage" src={this.state.data} id="giphy"/>
+		</div>	
 		);
 	}
 	

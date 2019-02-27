@@ -173,7 +173,7 @@ class Board extends React.Component {
             return (
               <div key={ix}>
                 {
-                  ar.map((el, idx) => <Square key={idx} value={el} data-pix={ix} data-cix={idx} boards={boards} callgetgiphy={this.props.callgetgiphy}/>)
+                  ar.map((el, idx) => <Square className="buttons" key={idx} value={el} data-pix={ix} data-cix={idx} boards={boards} callgetgiphy={this.props.callgetgiphy}/>)
                 }
               </div>
 
@@ -254,7 +254,7 @@ class Game extends React.Component {
 
   render() {
     return (
-      <div className="game">
+      <div className="game col-md-12 col-sm-12">
 
         <Board className="game-board" callgetgiphy={this.state.getnewgiphy}/>
 

@@ -11,9 +11,8 @@ class App extends Component {
     return (
     <div>
 
-    <h1> BOOJHO TO JAANEIN!! </h1>
+   
 
-    <h3>Find as many nicknames of your team mates in 30 seconds as you can!</h3>
       <Game/>
     </div>
     );

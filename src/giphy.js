@@ -1,6 +1,6 @@
 import React from 'react';
 function getRandomInt() { 
-  let randNum = Math.floor((Math.random() * 10) + 1);
+  let randNum = Math.floor((Math.random() * 5) + 1);
   console.log(randNum);
   return randNum;
 }
@@ -55,7 +55,9 @@ class Giphy extends React.Component {
 	
 	render(){
 		return (
+		<div className="giphyWrapper">
 			<img  className="giphyimage" src={this.state.data} id="giphy"/>
+		</div>	
 		);
 	}
 	

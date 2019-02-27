@@ -378,10 +378,12 @@ class Game extends React.Component {
   finishGame = () => {
     this.setState({ finish: true });
     alert("Game over!!!!");
-    Window.reload();
+
+    window.location.reload();
+    this.forceUpdate();
   }
   render() {
-  
+
     return (
 
       <div className="game col-md-12 col-sm-12">

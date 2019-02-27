@@ -1,9 +1,9 @@
 import Giphy from './giphy.js'
 
 import React, { Component } from 'react';
-  let clickCount = 0;
-  let firstSelectedIndex=[-1, -1];
-    let lastselectedIndex=[-1, -1];
+let clickCount = 0;
+let firstSelectedIndex=[-1, -1];
+let lastselectedIndex=[-1, -1];
 
 
 class Square extends React.Component {
@@ -15,10 +15,6 @@ class Square extends React.Component {
     {
       firstSelectedIndex=[Number(pix), Number(cix)];
       clickCount +=1;
-      {
-      alert("Please mark the end of the word");
-        }
-
     }
     else if(clickCount ==1)
     {
@@ -29,9 +25,11 @@ class Square extends React.Component {
       if(matchedString=="")
       {
         this.props.callgetgiphy('wrong');
+        this.handleColoring('red');
       }
       else
       {
+        this.handleColoring('green');
         console.log(typeof matchedString);
         var stringForGiphy = giphyMapping[matchedString.toLowerCase()];
         console.log("hahahahha"+stringForGiphy);
@@ -47,6 +45,33 @@ class Square extends React.Component {
 
 
    // console.log(pix, cix, this.props.boards[pix][cix]);
+  }
+
+  handleColoring = (color) => {
+    if (firstSelectedIndex[0]===lastselectedIndex[0]) {
+      let first = firstSelectedIndex[1];
+      let last = lastselectedIndex[1];
+      if (firstSelectedIndex[1]>lastselectedIndex[1]) {
+        first = lastselectedIndex[1];
+        last = firstSelectedIndex[1];
+      }
+
+      for (let i = first; i <= last; i++) {
+        {document.getElementById(`${firstSelectedIndex[0]}-${i}`).style.background=`${color}`}
+      }
+    }
+    if (firstSelectedIndex[1]===lastselectedIndex[1]) {
+      let first = firstSelectedIndex[0];
+      let last = lastselectedIndex[0];
+      if (firstSelectedIndex[0]>lastselectedIndex[0]) {
+        first = lastselectedIndex[0];
+        last = firstSelectedIndex[0];
+      }
+
+      for (let i = first; i <= last; i++) {
+        {document.getElementById(`${i}-${firstSelectedIndex[1]}`).style.background=`${color}`}
+      }
+    }
   }
   render() {
     const { value, boards, ...rest } = this.props;
@@ -97,9 +122,7 @@ if(nickNamesArray.includes(charString.toLowerCase()))
 
   return charString.toLowerCase();
 }
-return "jjL";
-
-
+return "";
 }
 const nickNamesArray = [
 'munni',
@@ -136,20 +159,20 @@ const nickNamesArray = [
 var giphyMapping = {
 "munni": "high",
 "budhiya": "old",
-"chuhiya": "mouse",
+"chuhiya": "rat",
 "aalsi":  "lazy",
 "ninja": "coder",
 "motu": "fat",
 "saanp": "snake",
 "ashu": "snake",
-"gujjar": "shabby",
+"gujjar": "bakwas",
 "amu": "crazy",
 "takla": "bald",
 "god": "intelligent",
 "hardik": "high",
 "pagal": "mad",
 "nikki": "intelligent",
-"bipis": "royal enfield",
+"bipis": "bike",
 "vroom": "panda",
 "lambu": "tall",
 "bughay": "excited",
@@ -182,7 +205,11 @@ function generate_random_string(){
 
 
 class Board extends React.Component {
-	constructor(props)
+	state = { 
+
+  }
+
+  constructor(props)
 	{
 		super(props);
 	}
@@ -215,7 +242,7 @@ class Board extends React.Component {
             return (
               <div key={ix}>
                 {
-                  ar.map((el, idx) => <Square className="buttons" key={idx} value={el} data-pix={ix} data-cix={idx} boards={boards} callgetgiphy={this.props.callgetgiphy}/>)
+                  ar.map((el, idx) => <Square className="buttons" key={idx} value={el} data-pix={ix} data-cix={idx} id={`${ix}-${idx}`} boards={boards} callgetgiphy={this.props.callgetgiphy}/>)
                 }
               </div>
 
@@ -277,6 +304,9 @@ class Board extends React.Component {
         }
       }
     }
+    boards = boards.map(x => {
+      return x.map(y=> y.toUpperCase());
+    })
     return boards;
   }
 
@@ -300,7 +330,7 @@ class Game extends React.Component {
 
         <Board className="game-board" callgetgiphy={this.state.getnewgiphy}/>
 
-        <Giphy query='begin' getRef={this.getRef}/>
+        <Giphy query='start' getRef={this.getRef}/>
       </div>
     );
   }

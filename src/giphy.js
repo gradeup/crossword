@@ -1,6 +1,6 @@
 import React from 'react';
 function getRandomInt() { 
-  let randNum = Math.floor((Math.random() * 10) + 1);
+  let randNum = Math.floor((Math.random() * 5) + 1);
   console.log(randNum);
   return randNum;
 }

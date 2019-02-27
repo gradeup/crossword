@@ -77,7 +77,7 @@ class Square extends React.Component {
   render() {
     const { value, boards, ...rest } = this.props;
     return (
-      <button className="square" {...rest} onClick={this.handleClick} style={{width:'30px', height:'30px'}}>
+      <button className="square" {...rest} onClick={this.handleClick} style={{width:'45px', height:'45px'}}>
         {value}
       </button>
     );
@@ -351,33 +351,40 @@ class Board extends React.Component {
 
 class Game extends React.Component {
 
-
-
-
-
   state = {
     getnewgiphy: () => {},
   };
+
 
   getRef = (ref) => {
     console.log('settings ref');
     this.setState({ getnewgiphy: ref });
   }
 
-  setGameState = (value) =>{this.setState({selectedString: value})};
+  setGameRef = (value) =>{
+    document.getElementById('selectedValue').innerHTML = ` You selected: <strong>${value}</strong>`;
+    if (nickNameMapping[value.toLowerCase()]) {
+      document.getElementById('selectedValueName').innerHTML = ` AKA <strong>${nickNameMapping[value.toLowerCase()] || '' }</strong>`;
+    }
+    else {
+      document.getElementById('selectedValueName').innerHTML = 'changu hai kya?';
+    }
+  };
   
 
   render() {
     return (
       <div className="game col-md-12 col-sm-12">
-      <Board className="game-board" callgetgiphy={this.state.getnewgiphy} setGameState={this.setGameState}/>
-      <h1> You selected: {this.state.selectedString}</h1>
-      <p>{
-        nickNameMapping[this.state.selectedString]?"Also known as "+nickNameMapping[this.state.selectedString]:<p>changu saale</p>
-      }
-      </p>
+      <h1 className="heading"> BOOJHO TO JAANEIN!! </h1>
+      <div class="game-board-wrapper">
+        <Board className="game-board" callgetgiphy={this.state.getnewgiphy} setGameState={this.setGameRef}/>
+        <div>
+          <h1 id="selectedValue"> You selected: Nothing</h1>
+          <p id="selectedValueName">Chal Select Kar..</p>
+          <Giphy query='start' getRef={this.getRef}/>  
+        </div>      
+      </div>
 
-      <Giphy query='start' getRef={this.getRef}/>
       </div>
     );
   }

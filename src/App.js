@@ -10,8 +10,6 @@ class App extends Component {
     
     return (
     <div>
-
-    <h1> BOOJHO TO JAANEIN!! </h1>
       <Game/>
     </div>
     );

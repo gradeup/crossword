@@ -9,7 +9,7 @@ class Square extends React.Component {
   render() {
     const { value, boards, ...rest } = this.props;
     return (
-      <button className="square" {...rest} onClick={this.handleClick}>
+      <button className="square" {...rest} onClick={this.handleClick} style={{width:'30px', height:'30px'}}>
         {value}
       </button>
     );

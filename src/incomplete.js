@@ -2,10 +2,15 @@
 import React, { Component } from 'react';
 
 class Square extends React.Component {
+  handleClick = ev => {
+    const { pix, cix } = ev.currentTarget.dataset;
+    console.log(pix, cix, this.props.boards[pix][cix]);
+  }
   render() {
+    const { value, boards, ...rest } = this.props;
     return (
-      <button className="square">
-        {this.props.value}
+      <button className="square" {...rest} onClick={this.handleClick}>
+        {value}
       </button>
     );
   }
@@ -64,19 +69,34 @@ class Board extends React.Component {
   }
 
   loop2 = () => {
-  	    let boards=[];
-  	    for (let i=0; i<20; i++) {
-        	  boards.push(<Square value={generate_random_string()} key={i}/>); 
+        let boards=[];
+        for (let i=0; i<20; i++) {
+          boards[i] = [];
+  	    for (let k=0; k<20; k++) {
+        	boards[i].push(generate_random_string()); 
         }
+      }
+
         return boards;
   }
 
   render() {
 
+    const boards = this.loop2();
+
     return (
       <div>
          <div className="board-row">
-          { this.loop2() }
+          { boards.map((ar, ix) => {
+            return (
+              <div key={ix}>
+                {
+                  ar.map((el, idx) => <Square key={idx} value={el} data-pix={ix} data-cix={idx} boards={boards}/>)
+                }
+              </div>
+
+            );
+          }) }
         
         </div>
       </div>
@@ -88,18 +108,12 @@ class Board extends React.Component {
 class Game extends React.Component {
 
 
-  loop = () => {
-  	    let boards=[];
-  	    for (let i=0; i<20; i++) {
-        	  boards.push(<Board key={i}/>); 
-        }
-        return boards;
-  }
+  
   render() {
     return (
       <div className="game">
         <div className="game-board">
-        { this.loop()
+        { <Board/>
          }
         </div>
       

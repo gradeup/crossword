@@ -93,7 +93,6 @@ console.log(charString, nickNamesArray);
 
 if(nickNamesArray.includes(charString.toLowerCase()))
 {
-  console.log("inclusessssss");
   return "yes";
 }
 return "no";
@@ -127,7 +126,44 @@ const nickNamesArray = [
 'gareeb',
 'midget',
 'changu',
-'baap'];
+'baap',
+'buddies'];
+
+
+
+const giphyMapping = new Map([
+['munni', 'high'],
+['budhiya', 'old'],
+['chuhiya', 'mouse'],
+['aalsi',  'lazy'],
+['ninja', 'coder'],
+['motu', 'fat'],
+['saanp', 'snake'],
+['ashu', 'snake'],
+['gujjar', 'shabby'],
+['amu', 'crazy'],
+['takla', 'bald'],
+['god', 'intelligent'],
+['hardik', 'high'],
+['pagal', 'mad'],
+['nikki', 'intelligent'],
+['bipis', 'royal enfield'],
+['vroom', 'panda'],
+['lambu', 'tall'],
+['bughay', 'excited'],
+['chill', 'cool'],
+['genda', 'fat'],
+['ameer', 'rich'],
+['kids', 'kids'],
+['gareeb', 'poor'],
+['midget', 'short'],
+['changu', 'stupid'],
+['baap', 'dad'],
+['buddies', 'friends']]); 
+ 
+
+
+
 
 
 function generate_random_string(){

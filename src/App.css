@@ -49,20 +49,24 @@
 }
 .giphyimage {
   border-radius: 10px;
-  margin:auto;
-  width:300px;
-  height:300px;
+  margin:0px;
+  width:296px;
+  height:296px;
 }
 .board-row {
   text-align:center;
   color: black;
 }
 .giphyWrapper {
+  border-radius: 10px;
+  width:300px;
+  height:300px;
+  border: 2px solid white;
   margin-top: 50px;
   display:flex;
   justify-content: space-around;
 }
-.selectedValueName {
+#selectedValueName {
   font-size: 22px;
 }
 

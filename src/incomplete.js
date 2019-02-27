@@ -1,4 +1,6 @@
-import Giphy from './giphy.js'
+import Giphy from './giphy.js';
+import Timer2 from './timer.js';
+
 
 import React, { Component } from 'react';
   let clickCount = 0;
@@ -318,12 +320,10 @@ class Board extends React.Component {
 
 class Game extends React.Component {
 
-
-
-
-
+ 
   state = {
     getnewgiphy: () => {},
+    finish: false,
   };
 
   getRef = (ref) => {
@@ -332,13 +332,26 @@ class Game extends React.Component {
   }
 
   setGameState = (value) =>{this.setState({selectedString: value})};
-  
+
+
+  finishGame = () => {
+    this.setState({ finish: true });
+    alert("Game over!!!!");
+  }
 
   render() {
+    if(this.state.timer==0)
+    {
+        alert("ooooo");
+
+    }
     return (
+   
+
       <div className="game">
 
         <Board className="game-board" callgetgiphy={this.state.getnewgiphy} setGameState={this.setGameState}/>
+        <Timer2 finishGame={this.finishGame}/>
 
 
 

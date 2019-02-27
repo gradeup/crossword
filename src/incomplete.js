@@ -6,6 +6,7 @@ import React, { Component } from 'react';
     let lastselectedIndex=[-1, -1];
 
 
+var selectedString = "";
 class Square extends React.Component {
   handleClick = ev => {
     const { pix, cix } = ev.currentTarget.dataset;
@@ -15,9 +16,7 @@ class Square extends React.Component {
     {
       firstSelectedIndex=[Number(pix), Number(cix)];
       clickCount +=1;
-      {
-      alert("Please mark the end of the word");
-        }
+    
 
     }
     else if(clickCount ==1)
@@ -25,7 +24,7 @@ class Square extends React.Component {
       lastselectedIndex = [Number(pix), Number(cix)];
       clickCount = 0;
 
-      var matchedString = checkIfWordExists(Number(pix), Number(cix), this.props.boards);
+      var matchedString = checkIfWordExists(Number(pix), Number(cix), this.props.boards, this.props.setGameState);
       if(matchedString=="")
       {
         this.props.callgetgiphy('wrong');
@@ -59,7 +58,7 @@ class Square extends React.Component {
 }
 
 
-function checkIfWordExists(x, y, boards)
+function checkIfWordExists(x, y, boards, setGameState)
 {
   var charString = '';
 
@@ -92,12 +91,14 @@ else
 
 console.log(charString, nickNamesArray);
 
+setGameState(charString.toLowerCase());
+
 if(nickNamesArray.includes(charString.toLowerCase()))
 {
 
   return charString.toLowerCase();
 }
-return "jjL";
+return "";
 
 
 }
@@ -162,6 +163,38 @@ var giphyMapping = {
 "changu": "stupid",
 "baap": "dad",
 "buddies": "friends"}; 
+
+
+
+var nickNameMapping = {
+"munni": "Ashok",
+"budhiya": "Faheem",
+"chuhiya": "Unnati",
+"aalsi":  "Gyan",
+"ninja": "Sanjeev",
+"motu": "Vipul",
+"saanp": "Ashutosh",
+"ashu": "Ashutosh",
+"gujjar": "Gunjit",
+"amu": "Amardeep",
+"takla": "Prashant",
+"god": "Nikhil",
+"hardik": "Ashok",
+"pagal": "Gunjit",
+"nikki": "Nikhil",
+"bipis": "Bipin",
+"vroom": "Varun",
+"lambu": "Ashutosh",
+"bughay": "Abhay",
+"chill": "Ashok",
+"genda": "Vipul",
+"ameer": "Anmol",
+"kids": "kids",
+"gareeb": "Vipul",
+"midget": "Aman",
+"changu": "Tech team",
+"baap": "Piyush",
+"buddies": "Tech team"}; 
  
 
 
@@ -215,7 +248,7 @@ class Board extends React.Component {
             return (
               <div key={ix}>
                 {
-                  ar.map((el, idx) => <Square key={idx} value={el} data-pix={ix} data-cix={idx} boards={boards} callgetgiphy={this.props.callgetgiphy}/>)
+                  ar.map((el, idx) => <Square key={idx} value={el} data-pix={ix} data-cix={idx} boards={boards} callgetgiphy={this.props.callgetgiphy} setGameState={this.props.setGameState}/>)
                 }
               </div>
 
@@ -285,6 +318,10 @@ class Board extends React.Component {
 
 class Game extends React.Component {
 
+
+
+
+
   state = {
     getnewgiphy: () => {},
   };
@@ -294,13 +331,29 @@ class Game extends React.Component {
     this.setState({ getnewgiphy: ref });
   }
 
+  setGameState = (value) =>{this.setState({selectedString: value})};
+  
+
   render() {
     return (
       <div className="game">
 
-        <Board className="game-board" callgetgiphy={this.state.getnewgiphy}/>
+        <Board className="game-board" callgetgiphy={this.state.getnewgiphy} setGameState={this.setGameState}/>
 
-        <Giphy query='begin' getRef={this.getRef}/>
+
+
+
+
+   <h1> You selected: {this.state.selectedString}</h1>
+   <p>{
+  
+   nickNameMapping[this.state.selectedString]?"Also known as "+nickNameMapping[this.state.selectedString]:<p>changu saale</p>
+
+   }
+   </p>
+
+       <p> <Giphy query='begin' getRef={this.getRef}/>
+       </p>
       </div>
     );
   }

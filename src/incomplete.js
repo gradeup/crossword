@@ -1,10 +1,50 @@
+import { getGiphy } from './giphy.js'
 
 import React, { Component } from 'react';
+  let clickCount = 0;
+  let firstSelectedIndex=[-1, -1];
+    let lastselectedIndex=[-1, -1];
+
 
 class Square extends React.Component {
   handleClick = ev => {
     const { pix, cix } = ev.currentTarget.dataset;
-    console.log(pix, cix, this.props.boards[pix][cix]);
+
+
+    if(clickCount==0)
+    {
+      firstSelectedIndex=[Number(pix), Number(cix)];
+      clickCount +=1;
+      {
+      alert("Please mark the end of the word");
+        }
+
+    }
+    else if(clickCount ==1)
+    {
+      lastselectedIndex = [Number(pix), Number(cix)];
+      clickCount = 0;
+
+       if(checkIfWordExists(Number(pix), Number(cix), this.props.boards))
+       {
+
+        console.log(checkIfWordExists(Number(pix), Number(cix), this.props.boards));
+
+       }
+       else
+       {
+
+       }
+               //console.log(checkIfWordExists(Number(pix), Number(cix), this.props.boards));
+
+      firstSelectedIndex = [-1, -1];
+      lastselectedIndex = [-1, -1];
+
+    }
+
+
+
+   // console.log(pix, cix, this.props.boards[pix][cix]);
   }
   render() {
     const { value, boards, ...rest } = this.props;
@@ -16,6 +56,53 @@ class Square extends React.Component {
   }
 }
 
+
+function checkIfWordExists(x, y, boards)
+{
+  console.log(boards);
+  var charString = '';
+
+console.log(firstSelectedIndex, lastselectedIndex);
+if(firstSelectedIndex[0]==lastselectedIndex[0])
+{
+  var fixedIndex = firstSelectedIndex[0];
+  for(let i=0; i<=lastselectedIndex[1]-firstSelectedIndex[1]; i++)
+  {
+    console.log(boards[fixedIndex], firstSelectedIndex[1]);
+  charString = charString+boards[fixedIndex][firstSelectedIndex[1]+i];
+}
+
+console.log(charString);
+
+}
+else if( firstSelectedIndex[1]==lastselectedIndex[1])
+{
+
+
+  var fixedIndex = firstSelectedIndex[1];
+  for(let i=0; i<=lastselectedIndex[0]-firstSelectedIndex[0]; i++)
+  {
+    console.log(boards[fixedIndex], firstSelectedIndex[0]);
+  charString = charString+boards[firstSelectedIndex[0]+i][fixedIndex];
+}
+
+console.log(charString);
+if(nickNamesArray.includes(charString))
+{
+  return "yes";
+}
+return "no";
+
+
+}
+else
+{
+          alert("You can coose a vertical or horizontal direction only!");
+
+}
+
+
+}
 var nickNamesArray = [
 'munni',
 'budhiya',

@@ -6,7 +6,7 @@
 ['motu', 'fat'],
 ['saanp', 'snake'],
 ['ashu', 'snake'],
-['gujjar', 'shabby'],
+['gujjar', 'bakwas'],
 ['amu', 'crazy'],
 ['takla', 'bald'],
 ['god', 'intelligent'],

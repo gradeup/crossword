@@ -9,7 +9,7 @@ constructor(props)
 {
 	super(props);
   this.state={
-    timer:30000
+    timer:50000
   };
   this.timeInt = setInterval(this.reduceTimer,1000);
 }
@@ -26,7 +26,7 @@ reduceTimer = () => {
    });
  }
 render(){
-	return <h3>{this.state.timer}</h3>;
+	return <h3>Time left: {this.state.timer/1000}</h3>;
 }
 
 }

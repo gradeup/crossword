@@ -400,7 +400,6 @@
             <Giphy query='start' getRef={this.getRef}/>  
           </div>      
         </div>
-
         </div>
       );
     }
